@@ -42,7 +42,7 @@ header {
     width: 121px;
     height: 44px;
     font-family: Inter, sans-serif;
-    size: 16px;
+    font-size: 16px;
     font-weight: 600;
     background-color: #f05ba5;
     color: white;
@@ -115,7 +115,7 @@ nav a {
   .card {
     height : 187px;
     width: 432px;
-    padding: 30px;
+    padding: 13px;
     border: 3px solid #C0C1FD;
     border-radius: 30px;
     text-align: center;
@@ -123,19 +123,16 @@ nav a {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     width: 432;
   }
+
   .card-title{
-    font-family: Plus Jakarta Sans, sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 20px;
-    display: flex;
-  }
-  .card-title{
-    width: 406px;
+    width: 432px;
     height: 33px;
     display : flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 14px;
+    border-bottom: 3px solid #C0C1FD;
+    
   }
   
   .card h3 {
