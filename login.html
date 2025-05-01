@@ -20,6 +20,10 @@
       min-height: 100vh;
       position: relative;
       overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* pastikan full height */
     }
 
     .icon-left, .icon-right, .icon-pink {
@@ -147,6 +151,14 @@
     .signup-text a:hover {
       text-decoration: underline;
     }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
   </style>
 </head>
 <body>
@@ -194,6 +206,7 @@
       window.location.href = window.location.pathname + "?" + params.toString();
     });
   </script>
+  
   
 </body>
 </html>
