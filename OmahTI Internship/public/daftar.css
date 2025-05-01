@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+body{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* kotak daftar */
+.auth-box{
+    width: 684px;
+    height: 643px;
+    background-color: #F5F5FF;
+    margin : 74px 0 198px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    border : 1px solid #8D8FF9;
+    border-radius: 20px;
+}
+.auth-main{
+    height: 499px;
+    width: 569px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding : 72.5px 58px 71.5px 57px; 
+    align-items: center;
+}
+.auth-main p{
+    margin:0;
+}
+.text{
+    font-family: Plus Jakarta Sans;
+    font-weight: 700;
+    font-size: 42px;
+}
+.pink{
+    color: #E9509D;
+}
+.green{
+    color : #50E9B6;
+}
+.darkblue{
+    color : #4043E9
+}
+.blue{
+    color:#6264F2
+}
+.auth-fill{
+    height: 270px;
+    width: 569px;
+    display: flex;
+    flex-direction: column;
+    gap : 30px;
+}
+
+.auth-kinds{
+    margin : 0;
+    padding-bottom: 6px;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+    color: #011829;
+}
+
+.fill-here{
+    margin: 0;
+    background-color: white;
+    padding : 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #D4D4D8;
+    align-self: center;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 16px;
+    color: #A1A1AA;
+}
+
+.auth-button{
+    width: 301px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap : 15px;
+}
+
+.end-credit-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+/* Button styling */
+.auth-button button {
+    width: 100%;
+    height: 44px;
+    border: 1px solid #6264F2;
+    background-color: #6264F2;
+    border-radius: 8px;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Login text container */
+.auth-button .login-link {
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Text before the link */
+.log-link {
+    font-weight: 700;
+    color: #000287;
+}
+
+/* Actual link */
+.login-link a {
+    color: #DD388B;
+    font-weight: 400;
+    text-decoration: none;
+}
