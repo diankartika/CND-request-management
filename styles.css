@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #F9FAFB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.icon-left, .icon-right, .icon-pink {
+    position: absolute;
+    z-index: -1;
+}
+
+.icon-left {
+    top: 5%;
+    left: -10%;
+    width: 350px;
+    height: auto;
+}
+
+.icon-right {
+    bottom: 5%;
+    right: -10%;
+    width: 350px;
+    height: auto;
+}
+
+.icon-pink {
+    top: 50%;
+    right: 5%;
+    width: 300px;
+    height: auto;
+    transform: translateY(-50%);
+}
+
+.icon-left img, .icon-right img, .icon-pink img {
+    width: 100%;
+    height: auto;
+}
+
+.login-form {
+    background: #F5F5FF;
+    border: 1px solid #8D8FF9;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    margin: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.login-form h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.login-form h1 .selamat {
+    color: #4043E9; /* Warna biru */
+}
+
+.login-form h1 .datang {
+    color: #E9509D; /* Warna pink */
+}
+
+.login-form h1 .kembali {
+    color: #38DDA6; /* Warna hijau */
+}
+
+.login-form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #D4D4D8;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.login-form .forgot-password {
+    display: block;
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 12px;
+    color: #4043E9;
+    text-decoration: none;
+}
+
+.login-form .forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-form .login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4043E9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form .login-button:hover {
+    background-color: #3033C9;
+}
+
+.login-form .signup-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
+.login-form .signup-text a {
+    color: #E9509D;
+    text-decoration: none;
+}
+
+.login-form .signup-text a:hover {
+    text-decoration: underline;
+}

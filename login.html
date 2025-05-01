@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9fafb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* pastikan full height */
+    }
+
+    .icon-left, .icon-right, .icon-pink {
+      position: absolute;
+    }
+
+    .icon-left {
+        top: -50px;
+        left: -80px;
+        width: 300px;
+        z-index: -3;
+    }
+      
+    .icon-right {
+        position: absolute;
+        bottom: -100px;
+        right: -80px;
+        width: 420px;
+        z-index: -2; /* di bawah pink */
+      }
+      
+    .icon-pink {
+        position: absolute;
+        bottom: -40px;   /* naikkan sedikit */
+        right: -30px;    /* geser kiri */
+        width: 260px;    /* sedikit lebih kecil dari ungu */
+        z-index: -1;     /* lebih tinggi dari icon ungu */
+    }
+      
+    .icon-left img,
+    .icon-right img,
+    .icon-pink img {
+      width: 100%;
+      height: auto;
+    }
+
+    .login-form {
+      background: #f5f5ff;
+      border: 1px solid #8d8ff9;
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      z-index: 1;
+    }
+
+    .login-form h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      white-space: nowrap;
+      word-spacing: 2px;
+    }
+
+    .login-form h1 .selamat {
+      color: #4043e9;
+    }
+
+    .login-form h1 .datang {
+      color: #e9509d;
+    }
+
+    .login-form h1 .kembali {
+      color: #38dda6;
+    }
+
+    .login-form label {
+      display: block;
+      text-align: left;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .login-form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1px solid #d4d4d8;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .forgot-password {
+      display: block;
+      text-align: left;
+      font-size: 12px;
+      margin-top: -12px;
+      margin-bottom: 20px;
+      color: #000; /* Warna hitam */
+      text-decoration: none;
+    }
+
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4043e9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      background-color: #3033c9;
+    }
+
+    .signup-text {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .signup-text a {
+      color: #e9509d;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Background Icons -->
+  <div class="icon-left">
+    <img src="assets/icon_hijau.png" alt="Icon Hijau">
+  </div>
+  <div class="icon-right">
+    <img src="assets/icon_ungu.png" alt="Icon Ungu">
+  </div>
+  <div class="icon-pink">
+    <img src="assets/icon_pink.png" alt="Icon Pink">
+  </div>
+
+  <!-- Login Form -->
+<div class="login-form">
+    <h1>
+      <span class="selamat">Selamat</span>
+      <span class="datang">Datang</span>
+      <span class="kembali">Kembali!</span>
+    </h1>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="email@email.com" required>
+  
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Tuliskan Password" required>
+  
+      <a href="#" class="forgot-password">Lupa Password?</a>
+  
+      <button type="submit" class="login-button">Masuk</button>
+    </form>
+    <p class="signup-text">Belum punya akun? <a href="sign_up.html">Daftar</a></p>
+  </div>
+  
+  <!-- JavaScript untuk submit ke Streamlit -->
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // cegah reload halaman
+  
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+  
+      const params = new URLSearchParams({ email, password });
+      window.location.href = window.location.pathname + "?" + params.toString();
+    });
+  </script>
+  
+  
+</body>
+</html>
