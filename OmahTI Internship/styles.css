@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+body{
+    margin: 0;
+}
+.navbar{
+    height: 95px;
+    width: 1440px;
+    display: flex;
+}
+
+.navbar-logo{
+    display: flex;
+    justify-content: center;
+    height:45px;
+    width: 166px;
+    margin-left: 24px;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+.navbar-font{
+    font-family: Plus Jakarta Sans;
+    font-weight: 700;
+    font-size: 22px;
+    color: #0306A0;
+    justify-content: center;
+
+}
