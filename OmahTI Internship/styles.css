@@ -4,26 +4,71 @@
 body{
     margin: 0;
 }
-.navbar{
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  .navbar {
     height: 95px;
-    width: 1440px;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0;
     display: flex;
-}
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+  }
 
-.navbar-logo{
+.navbar-logo {
     display: flex;
-    justify-content: center;
-    height:45px;
+    align-items: center;
+    height: 45px;
     width: 166px;
-    margin-left: 24px;
     margin-bottom: 25px;
     margin-top: 25px;
 }
-.navbar-font{
-    font-family: Plus Jakarta Sans;
+.navbar-font {
+    font-family: Plus Jakarta Sans, sans-serif;
     font-weight: 700;
     font-size: 22px;
     color: #0306A0;
-    justify-content: center;
-
+    padding-left: 18px;
 }
+.login-btn {
+    width: 121px;
+    height: 44px;
+    font-family: Plus Jakarta Sans, sans-serif;
+    size: 16px;
+    font-weight: 600;
+    background-color: #f05ba5;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-left: 1rem;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-weight: 700;
+}
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
