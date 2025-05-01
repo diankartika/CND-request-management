@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
 
 body{
     margin: 0;
@@ -41,7 +41,7 @@ header {
 .login-btn {
     width: 121px;
     height: 44px;
-    font-family: Plus Jakarta Sans, sans-serif;
+    font-family: Inter, sans-serif;
     size: 16px;
     font-weight: 600;
     background-color: #f05ba5;
@@ -72,3 +72,112 @@ nav a {
     gap: 30px;
 }
 
+.green-left{
+    width: 452px;
+    height: 604.0000551877262;
+    top: 673.5px;
+    padding-left: -60.74px;
+}
+
+.hero {
+    text-align: center;
+    padding: 84px 20px;
+    
+  }
+  
+  .hero-title {
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-size: 46px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .hero-title .blue { color: #4043E9; }
+  .hero-title .pink { color: #E9509D; }
+  .hero-title .green { color: #38DDA6; }
+  
+  .hero-description {
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    max-width: 680px;
+    margin: 22px auto 60px;
+    color: #000;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    height : 187px;
+    width: 432px;
+    padding: 30px;
+    border: 3px solid #C0C1FD;
+    border-radius: 30px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    width: 432;
+  }
+  .card-title{
+    font-family: Plus Jakarta Sans, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+  }
+  .card-title{
+    width: 406px;
+    height: 33px;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .card h3 {
+    font-family: plus jakarta sans, sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    padding-left: 14px;
+    
+  }
+  
+  .card p {
+    font-family: plus jakarta sans, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+  }
+  
+  .pink-btn {
+    background-color: #DD388B;
+    color: white;
+    padding: 24,5px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 118px;
+    height: 44px;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    margin : 7px 144px 13px;
+  }
+  
+  .green-btn {
+    background-color: #27CD95;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 118px;
+    height: 44px;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    margin : 7px 144px 13px;
+  }
