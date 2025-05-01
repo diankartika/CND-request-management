@@ -5,13 +5,13 @@ import os
 import mysql.connector
 import hashlib
 
-# Fungsi embed gambar ke HTML
+# Fungsi embed gambar ke dalam HTML
 def embed_assets_in_html(html_path, asset_folder="assets"):
     with open(html_path, "r", encoding="utf-8") as f:
         html = f.read()
 
     for filename in os.listdir(asset_folder):
-        if filename.endswith((".png", ".jpg", ".jpeg", ".gif")):
+        if filename.lower().endswith((".png", ".jpg", ".jpeg", ".gif")):
             filepath = os.path.join(asset_folder, filename)
             with open(filepath, "rb") as img_file:
                 b64_data = base64.b64encode(img_file.read()).decode()
@@ -20,7 +20,7 @@ def embed_assets_in_html(html_path, asset_folder="assets"):
 
     return html
 
-# Koneksi ke database
+# Koneksi ke database MySQL
 def create_connection():
     return mysql.connector.connect(
         host="localhost",
@@ -33,7 +33,7 @@ def create_connection():
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Login user
+# Proses login user
 def login_user(email, password):
     conn = create_connection()
     cursor = conn.cursor()
@@ -44,25 +44,59 @@ def login_user(email, password):
     conn.close()
     return result
 
-def main():
-    st.set_page_config(page_title="Login Page", layout="wide")
-
-    # 1. Tampilkan HTML
-    html_content = embed_assets_in_html("login.html")
+# Halaman Landing Page
+def show_landing_page():
+    html_content = embed_assets_in_html("landing_page.html")
     components.html(html_content, height=1000, scrolling=False)
+    
+# Halaman Login Page
+def show_login_page():
+    if "logged_in" not in st.session_state:
+        st.session_state.logged_in = False
 
-    # 2. Ambil parameter dari URL (via JavaScript)
+    if not st.session_state.logged_in:
+        # Get credentials from query params
+        params = st.experimental_get_query_params()
+        email = params.get("email", [None])[0]
+        password = params.get("password", [None])[0]
+
+        if email and password:
+            user = login_user(email, password)
+            if user:
+                st.session_state.logged_in = True
+                st.session_state.user_name = user[2]  # assuming column 3 is name
+                st.experimental_set_query_params(page="dashboard")  # redirect
+                st.rerun()
+            else:
+                st.error("Email atau password salah.")
+
+        # Render the login HTML
+        html_content = embed_assets_in_html("login.html")
+        components.html(html_content, height=1000, scrolling=False)
+    else:
+        st.success(f"Login berhasil, selamat datang {st.session_state.user_name}!")
+
+
+
+# Main Routing
+def main():
+    st.set_page_config(page_title="Internship OmahTI", layout="wide")  # ✅ benar: di-indent
+
     params = st.experimental_get_query_params()
-    email = params.get("email", [None])[0]
-    password = params.get("password", [None])[0]
+    page = params.get("page", ["landing"])[0]
 
-    # 3. Jika ada input dari login form, proses login
-    if email and password:
-        user = login_user(email, password)
-        if user:
-            st.success(f"Login berhasil, selamat datang {user[2]}!")
-        else:
-            st.error("Email atau password salah.")
+    if page == "login":
+        show_login_page()
+    elif page == "dashboard":
+        st.write(f"Selamat datang di Dashboard, {st.session_state.get('user_name', 'User')}!")
+        if st.button("Logout"):
+            st.session_state.logged_in = False
+            st.session_state.user_name = ""
+            st.experimental_set_query_params(page="landing")
+            st.rerun()
+    else:
+        show_landing_page()
+
 
 if __name__ == "__main__":
     main()
