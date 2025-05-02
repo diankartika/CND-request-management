@@ -12,6 +12,7 @@
             font-family: Arial, sans-serif;
             background-color: #F9FAFB;
             overflow-x: hidden;
+            overflow-y: hidden;
         }
 
         header {
@@ -26,7 +27,7 @@
             height: 95px;
             width: 100%;
             max-width: 1440px;
-            margin: 0 auto;
+            margin: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -96,24 +97,24 @@
         }
 
         .icon-left {
-            top: 120px; /* Di bawah navbar */
+            top: 90px; /* Di bawah navbar */
             left: -80px;
             width: 300px;
             z-index: -3;
         }
 
         .icon-right {
-            top: 200px; /* Di bawah navbar */
-            right: -80px;
+            top: -28px; /* Di bawah navbar */
+            left: 1300px;
             width: 420px;
-            z-index: -2;
+            z-index: -1;
         }
 
         .icon-pink {
-            top: 300px; /* Di bawah navbar */
-            right: -30px;
-            width: 260px;
-            z-index: -1;
+            top: 192px; /* Di bawah navbar */
+            left : 1330px;
+            width: 453px;
+            z-index: -2;
         }
 
         .icon-left img,
@@ -257,7 +258,7 @@
                     <a href="#">About Us</a>
                     <a href="#">Contact</a>
                 </nav>
-                <button class="login-btn" onclick="window.location.href='?page=login';">Login</button>
+                <a href="login.html"><button class="login-btn">Login</button></a>
             </div>
         </div>
     </header>

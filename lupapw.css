@@ -10,62 +10,44 @@ body{
     overflow-y: hidden;
 }
 
-/* kotak daftar */
-.auth-box{
+.main{
     width: 684px;
-    height: 643px;
-    background-color: #F5F5FF;
-    margin : 50px 0 198px;
+    height: 503px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 37px;
-    border : 1px solid #8D8FF9;
+    background-color: #F5F5FF;
+    border: 1px solid #8D8FF9;
+    margin-top: 103px;
     border-radius: 20px;
 }
-.auth-main{
-    height: 499px;
+.titles{
+    margin:0;
+    margin-bottom: 30px;
+}
+.forgot-pass{
     width: 569px;
+    height: 299px;
+    margin: 102px 57px 102px 58px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    padding : 72.5px 58px 65.5px 57px; 
     align-items: center;
-}
-.auth-main p{
-    margin:0;
 }
 .text{
     font-family: Plus Jakarta Sans;
     font-weight: 700;
-    font-size: 42px;
+    font-size: 46px;
 }
 .pink{
     color: #E9509D;
 }
 .green{
-    color : #50E9B6;
+    color : #50E9B6
 }
-.darkblue{
-    color : #4043E9
-}
-.blue{
-    color:#6264F2
-}
-.auth-fill {
-    height: 270px;
+.email {
     width: 569px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-/* Pastikan wrapper tidak membatasi lebar input */
-.email, .fullname, .password {
-    width: 100%;
     height: 70px;
 }
-
-/* Label untuk input */
 .auth-kinds {
     margin: 0;
     padding-bottom: 6px;
@@ -75,7 +57,6 @@ body{
     color: #011829;
 }
 
-/* Input element */
 .fill-here {
     width: 100%;
     box-sizing: border-box;
@@ -92,80 +73,80 @@ body{
     transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-.auth-button{
-    width: 301px;
+.kirim-email{
     height: 80px;
+    width: 302px;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    gap : 15px;
+    margin : 40px 133.5px 0 133.5px;
 }
-
-.end-credit-scene {
+.send-email{
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-/* Button styling */
-.auth-button button {
-    width: 100%;
-    height: 44px;
-    border: 1px solid #6264F2;
     background-color: #6264F2;
+    color: white;
+    padding: 24,5px 10px;
+    border: 1px solid #6264F2;
     border-radius: 8px;
-    color: #FFFFFF;
-    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-family: Inter, sans-serif;
     font-weight: 500;
     font-size: 16px;
-    cursor: pointer;
+}
+.sudah-blom{
+    margin: 15px 48px 0 48px;
 }
 
-/* Login text container */
-.auth-button .login-link {
-    text-align: center;
-    font-size: 14px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-/* Text before the link */
-.log-link {
+.kirim-email span{
     font-weight: 700;
     color: #000287;
+    font-family: plus jakarta sans, sans-serif;
+    font-size:14px ;
 }
 
 /* Actual link */
-.login-link a {
+.kirim-email a {
     color: #DD388B;
     font-weight: 400;
     text-decoration: none;
+    font-weight: solid;
+    font-size: 14px;
+    text-decoration: underline;
 }
 .icon-left, .icon-right, .icon-pink {
     position: absolute;
-    z-index: -1;
-}
+  }
 
 .icon-left {
-    top: 0; /* Di bawah navbar */
-    left: -60.74px;
+    top: -50px;
+    left: -40px;
     width: 300px;
     z-index: -3;
 }
-
+  
 .icon-right {
-    top: -28px; /* Di bawah navbar */
-    left: 1350px;
+    position: absolute;
+    bottom: -100px;
+    right: -90px;
     width: 420px;
-    z-index: -1;
+    z-index: -1; /* di bawah pink */
+  }
+  
+.icon-pink {
+    position: absolute;
+    top: 100px;   /* naikkan sedikit */
+    right: 20px;    /* geser kiri */
+    width: 260px;    /* sedikit lebih kecil dari ungu */
+    z-index: -2;     /* lebih tinggi dari icon ungu */
 }
 
-.icon-pink {
-    top: 192px; /* Di bawah navbar */
-    left : 1400px;
-    width: 453px;
-    z-index: -2;
+.icon-left img,
+.icon-right img,
+.icon-pink img {
+  width: 100%;
+  height: auto;
 }
