@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css" />
+    <style>
+        /* Global Styles */
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Plus Jakarta Sans, Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f5f5f5;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 220px;
+            background-color: #FDC5E1;
+            height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1a237e;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item.active {
+            background-color: #A2A2A280;
+        }
+
+        .menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .menu-icon {
+            font-size: 20px;
+            color: #1a237e;
+        }
+
+        .team-members {
+            position: relative;
+        }
+
+        .team-badge {
+            position: absolute;
+            right: 10px;
+            background-color: #ffd700;
+            color: #333;
+            padding: 3px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            background-color: #8c1c56;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            position: relative;
+            overflow-y: auto;
+        }
+
+        .shapes-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(137, 140, 235, 0.5);
+            top: -50px;
+            right: -50px;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255, 201, 201, 0.4);
+            bottom: -100px;
+            right: 100px;
+        }
+
+        .shape-3 {
+            width: 350px;
+            height: 350px;
+            background-color: rgba(159, 222, 190, 0.4);
+            bottom: -50px;
+            right: -100px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: #364fc7;
+            margin-bottom: 5px;
+        }
+
+        /* Projects Section */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #1fb978;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-icon {
+            font-size: 24px;
+            color: #1fb978;
+        }
+
+        /* Project Table */
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .project-table th {
+            background-color: #ffffff;
+            padding: 15px;
+            text-align: left;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Status Pills */
+        .status-pill {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            width: 120px;
+            color: white;
+        }
+
+        .status-not-started {
+            background-color: #6c757d;
+        }
+
+        .status-in-progress {
+            background-color: #0d36e0;
+        }
+
+        .status-done {
+            background-color: #12b76a;
+        }
+
+        /* Priority Pills */
+        .priority-pill {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            cursor: pointer;
+            width: 120px;
+            color: white;
+        }
+
+        .priority-high {
+            background-color: #f44336;
+        }
+
+        .priority-medium {
+            background-color: #ffc107;
+            color: #333;
+        }
+
+        .priority-low {
+            background-color: #4caf50;
+        }
+
+        /* Form Fields */
+        .dropdown {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dropdown::after {
+            content: '▼';
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Dropdown Menu */
+        .dropdown-container {
+            position: relative;
+            width: 100%;
+        }
+        
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            display: none;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .dropdown-menu.active {
+            display: block;
+        }
+        
+        .dropdown-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        
+        .dropdown-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Date Picker */
+        .date-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+        .flatpickr-calendar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+            border-radius: 5px !important;
+        }
+
+        /* File Attachment */
+        .attachment {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            background-color: #000;
+            display: inline-block;
+            border-radius: 2px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .file-upload-btn {
+            border: 1px dashed #ddd;
+            color: #666;
+            background-color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .file-upload input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .project-name {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .assignee-dropdown {
+            width: 100%;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .project-table {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 10px;
+            }
+            
+            .menu {
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 5px;
+            }
+            
+            .menu-item span {
+                display: none;
+            }
+            
+            .logout-btn {
+                margin-top: 10px;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .project-table {
+                overflow-x: auto;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Rafael Mahardika</span>
+        </div>
+        
+        <div class="menu">
+            <a href="#" class="menu-item">
+                <span class="menu-icon">🏠</span>
+                <span>Home</span>
+            </a>
+            
+            <a href="#" class="menu-item active">
+                <span class="menu-icon">📁</span>
+                <span>Projects</span>
+            </a>
+            
+            <a href="#" class="menu-item">
+                <span class="menu-icon">📅</span>
+                <span>Calendar</span>
+            </a>
+            
+            <a href="#" class="menu-item team-members">
+                <span class="menu-icon">👥</span>
+                <span>Team</span>
+                <!-- <span class="team-badge">Dian K Putri</span> -->
+            </a>
+        </div>
+        
+        <button class="logout-btn">Log out</button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Background Shapes -->
+        <div class="shapes-bg">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+        </div>
+        
+        <!-- Header -->
+        <div class="header">
+            <h1 class="page-title">Project</h1>
+        </div>
+        
+        <!-- Projects Section -->
+        <div class="projects-section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-icon">📋</span>
+                    All Projects
+                </h2>
+            </div>
+            
+            <!-- Projects Table -->
+            <table class="project-table">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Assignee</th>
+                        <th>Status</th>
+                        <th>Deadline</th>
+                        <th>Priority</th>
+                        <th>Attach File</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" class="project-name" value="design-feeds-kabinet">
+                        </td>
+                        <td>
+                            <div class="dropdown-container">
+                                <div class="dropdown assignee-dropdown">Team member</div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">Team member</div>
+                                    <div class="dropdown-item">Rafael Mahardika</div>
+                                    <div class="dropdown-item">Dian K Putri</div>
+                                    <div class="dropdown-item">Maulana Faris Ganteng</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-pill status-not-started" data-status="not-started">Not started</div>
+                        </td>
+                        <td>
+                            <input type="text" class="date-input" value="02/05/2025">
+                        </td>
+                        <td>
+                            <div class="priority-pill priority-high" data-priority="high">High</div>
+                        </td>
+                        <td>
+                            <div class="attachment">
+                                <span class="file-icon"></span>
+                                <span>foto-kabinet.png</span>
+                                <button class="remove-btn">×</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="project-name" value="design-feeds-kabinet">
+                        </td>
+                        <td>
+                            <div class="dropdown-container">
+                                <div class="dropdown assignee-dropdown">Team member</div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">Team member</div>
+                                    <div class="dropdown-item">Rafael Mahardika</div>
+                                    <div class="dropdown-item">Dian K Putri</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-pill status-done" data-status="done">Done</div>
+                        </td>
+                        <td>
+                            <input type="text" class="date-input" value="02/05/2025">
+                        </td>
+                        <td>
+                            <div class="priority-pill priority-medium" data-priority="medium">Medium</div>
+                        </td>
+                        <td>
+                            <div class="attachment">
+                                <span class="file-icon"></span>
+                                <span>foto-kabinet.png</span>
+                                <button class="remove-btn">×</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="project-name" value="design-feeds-kabinet">
+                        </td>
+                        <td>
+                            <div class="dropdown-container">
+                                <div class="dropdown assignee-dropdown">Team member</div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">Team member</div>
+                                    <div class="dropdown-item">Rafael Mahardika</div>
+                                    <div class="dropdown-item">Dian K Putri</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-pill status-in-progress" data-status="in-progress">On progress</div>
+                        </td>
+                        <td>
+                            <input type="text" class="date-input" value="02/05/2025">
+                        </td>
+                        <td>
+                            <div class="priority-pill priority-low" data-priority="low">Low</div>
+                        </td>
+                        <td>
+                            <div class="attachment">
+                                <span class="file-icon"></span>
+                                <span>foto-kabinet.png</span>
+                                <button class="remove-btn">×</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="project-name" value="design-feeds-kabinet">
+                        </td>
+                        <td>
+                            <div class="dropdown-container">
+                                <div class="dropdown assignee-dropdown">Team member</div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item">Team member</div>
+                                    <div class="dropdown-item">Rafael Mahardika</div>
+                                    <div class="dropdown-item">Dian K Putri</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="status-pill status-not-started" data-status="not-started">Not started</div>
+                        </td>
+                        <td>
+                            <input type="text" class="date-input" value="02/05/2025">
+                        </td>
+                        <td>
+                            <div class="priority-pill priority-high" data-priority="high">High</div>
+                        </td>
+                        <td>
+                            <div class="file-upload">
+                                <button class="file-upload-btn">📎 Upload file</button>
+                                <input type="file" class="file-input">
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        // Status Pills Click Handler
+        const statusPills = document.querySelectorAll('.status-pill');
+        statusPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                const currentStatus = this.getAttribute('data-status');
+                let newStatus, newClass;
+                
+                // Cycle through statuses
+                if (currentStatus === 'not-started') {
+                    newStatus = 'in-progress';
+                    newClass = 'status-in-progress';
+                    this.textContent = 'On progress';
+                } else if (currentStatus === 'in-progress') {
+                    newStatus = 'done';
+                    newClass = 'status-done';
+                    this.textContent = 'Done';
+                } else {
+                    newStatus = 'not-started';
+                    newClass = 'status-not-started';
+                    this.textContent = 'Not started';
+                }
+                
+                // Update pill class and data attribute
+                this.className = 'status-pill ' + newClass;
+                this.setAttribute('data-status', newStatus);
+            });
+        });
+        
+        // Priority Pills Click Handler
+        const priorityPills = document.querySelectorAll('.priority-pill');
+        priorityPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                const currentPriority = this.getAttribute('data-priority');
+                let newPriority, newClass;
+                
+                // Cycle through priorities
+                if (currentPriority === 'high') {
+                    newPriority = 'medium';
+                    newClass = 'priority-medium';
+                    this.textContent = 'Medium';
+                } else if (currentPriority === 'medium') {
+                    newPriority = 'low';
+                    newClass = 'priority-low';
+                    this.textContent = 'Low';
+                } else {
+                    newPriority = 'high';
+                    newClass = 'priority-high';
+                    this.textContent = 'High';
+                }
+                
+                // Update pill class and data attribute
+                this.className = 'priority-pill ' + newClass;
+                this.setAttribute('data-priority', newPriority);
+            });
+        });
+        
+        // Dropdown Functionality
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function() {
+                // Close any open dropdowns first
+                document.querySelectorAll('.dropdown-menu.active').forEach(menu => {
+                    if (menu !== this.nextElementSibling) {
+                        menu.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                const dropdownMenu = this.nextElementSibling;
+                dropdownMenu.classList.toggle('active');
+            });
+        });
+        
+        // Dropdown Item Selection
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Get the selected value and update dropdown
+                const selectedValue = this.textContent;
+                const dropdown = this.closest('.dropdown-container').querySelector('.dropdown');
+                dropdown.textContent = selectedValue;
+                
+                // Close the dropdown
+                this.closest('.dropdown-menu').classList.remove('active');
+            });
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown-container')) {
+                document.querySelectorAll('.dropdown-menu.active').forEach(menu => {
+                    menu.classList.remove('active');
+                });
+            }
+        });
+        
+        // Remove File Functionality
+        const removeButtons = document.querySelectorAll('.remove-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const attachment = this.parentElement;
+                const td = attachment.closest('td');
+                
+                // Replace with file upload button
+                td.innerHTML = `
+                    <div class="file-upload">
+                        <button class="file-upload-btn">📎 Upload file</button>
+                        <input type="file" class="file-input">
+                    </div>
+                `;
+                
+                // Add event listener to new file input
+                const newFileInput = td.querySelector('.file-input');
+                addFileInputListener(newFileInput);
+            });
+        });
+        
+        // File Upload Functionality
+        const fileInputs = document.querySelectorAll('.file-input');
+        
+        function addFileInputListener(fileInput) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const file = this.files[0];
+                    const fileName = file.name;
+                    const td = this.closest('td');
+                    
+                    // Replace with file information
+                    td.innerHTML = `
+                        <div class="attachment">
+                            <span class="file-icon"></span>
+                            <span>${fileName}</span>
+                            <button class="remove-btn">×</button>
+                        </div>
+                    `;
+                    
+                    // Add event listener to new remove button
+                    const newRemoveBtn = td.querySelector('.remove-btn');
+                    newRemoveBtn.addEventListener('click', function() {
+                        const attachment = this.parentElement;
+                        const td = attachment.closest('td');
+                        
+                        // Replace with file upload button
+                        td.innerHTML = `
+                            <div class="file-upload">
+                                <button class="file-upload-btn">📎 Upload file</button>
+                                <input type="file" class="file-input">
+                            </div>
+                        `;
+                        
+                        // Add event listener to new file input
+                        const newFileInput = td.querySelector('.file-input');
+                        addFileInputListener(newFileInput);
+                    });
+                }
+            });
+        }
+        
+        // Add file input listeners
+        fileInputs.forEach(fileInput => {
+            addFileInputListener(fileInput);
+        });
+        
+        // Initialize Date Pickers
+        const dateInputs = document.querySelectorAll('.date-input');
+        dateInputs.forEach(input => {
+            flatpickr(input, {
+                dateFormat: "m/d/Y",
+                allowInput: true,
+                defaultDate: "02/05/2025"
+            });
+        });
+        
+        // Menu Item Click
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all menu items
+                menuItems.forEach(mi => mi.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+        
+        // Logout Button
+        const logoutBtn = document.querySelector('.logout-btn');
+        logoutBtn.addEventListener('click', function() {
+            // In a real app, this would redirect to logout endpoint
+            alert('You have been logged out');
+        });
+    </script>
+</body>
+</html>
