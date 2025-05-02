@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background-color: #ffcce6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            margin-right: 10px;
+        }
+        
+        .profile-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            background-color: #d9b0c9;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(226,225,255,0.4) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blob1, .blob2, .blob3 {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .blob1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(149, 128, 255, 0.3);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .blob2 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255, 128, 171, 0.2);
+            bottom: -200px;
+            right: 100px;
+        }
+        
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(128, 255, 191, 0.3);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #50479c;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #1db176;
+        }
+        
+        .member-icon {
+            background-color: #1db176;
+            border-radius: 5px;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .member-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 700px;
+        }
+        
+        .member-item {
+            background-color: rgba(149, 128, 255, 0.3);
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .member-name {
+            color: #a02150;
+            font-weight: bold;
+            flex-grow: 1;
+            text-align: center;
+        }
+        
+        .member-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            color: white;
+        }
+        
+        .btn-edit {
+            background-color: #50479c;
+        }
+        
+        .btn-delete {
+            background-color: #a02150;
+        }
+        
+        .add-member {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .input-member {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .btn-add {
+            background-color: #1db176;
+        }
+        
+        .member-projects {
+            background-color: rgba(128, 255, 191, 0.2);
+            border-radius: 10px;
+            padding: 10px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .project-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        
+        .logout-btn {
+            margin-top: auto;
+            background-color: #a02150;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .project-assignment {
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .project-assignment h3 {
+            margin-bottom: 10px;
+            color: #50479c;
+        }
+        
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .project-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-img"></div>
+            <div class="profile-name">Rafael Mahardika</div>
+        </div>
+        
+        <a class="nav-item" onclick="navigateTo('home')">
+            <div class="nav-icon">🏠</div>
+            <div>Home</div>
+        </a>
+        
+        <a class="nav-item" onclick="navigateTo('projects')">
+            <div class="nav-icon">📂</div>
+            <div>Projects</div>
+        </a>
+        
+        <a class="nav-item" onclick="navigateTo('calendar')">
+            <div class="nav-icon">📅</div>
+            <div>Calender</div>
+        </a>
+        
+        <a class="nav-item active" onclick="navigateTo('team')">
+            <div class="nav-icon">👥</div>
+            <div>Team</div>
+        </a>
+        
+        <button class="logout-btn">Log out</button>
+    </div>
+    
+    <div class="main-content">
+        <div class="blob1"></div>
+        <div class="blob2"></div>
+        <div class="blob3"></div>
+        
+        <div class="content">
+            <h1>Team</h1>
+            
+            <div class="section-title">
+                <div class="member-icon">👥</div>
+                <div>Member's</div>
+            </div>
+            
+            <div class="member-list" id="memberList">
+                <!-- Members will be dynamically added here -->
+            </div>
+            
+            <div class="add-member">
+                <input type="text" class="input-member" id="newMember" placeholder="Enter new member name">
+                <button class="btn btn-add" onclick="addMember()">Add Member</button>
+            </div>
+            
+            <div class="project-assignment" id="projectAssignment">
+                <h3>Assign Projects to <span id="selectedMemberName"></span></h3>
+                <div class="project-list" id="projectList">
+                    <!-- Projects will be dynamically added here -->
+                </div>
+                <button class="btn btn-add" onclick="saveProjects()">Save Assignments</button>
+                <button class="btn btn-delete" onclick="cancelAssignment()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample data
+        const projects = [
+            { id: 1, name: "Website Redesign" },
+            { id: 2, name: "Mobile App Development" },
+            { id: 3, name: "Marketing Campaign" },
+            { id: 4, name: "Database Migration" },
+            { id: 5, name: "UI/UX Research" }
+        ];
+        
+        let members = [
+            { id: 1, name: "Rafael Mahardika Arya Dewamurti", projects: [1, 3] },
+            { id: 2, name: "Maulana Faris Al Ghifari", projects: [2, 5] },
+            { id: 3, name: "Dian Kartika Putri", projects: [1, 4] },
+            { id: 4, name: "Nugroho Adi Susanto", projects: [3, 5] },
+            { id: 5, name: "Deira Aisya Refani", projects: [2, 4] }
+        ];
+        
+        let selectedMember = null;
+        
+        // Initialize the page
+        window.onload = function() {
+            renderMembers();
+            renderProjects();
+        };
+        
+        // Render all members
+        function renderMembers() {
+            const memberList = document.getElementById('memberList');
+            memberList.innerHTML = '';
+            
+            members.forEach(member => {
+                const memberItem = document.createElement('div');
+                memberItem.className = 'member-item';
+                memberItem.id = `member-${member.id}`;
+                
+                const memberName = document.createElement('div');
+                memberName.className = 'member-name';
+                memberName.textContent = member.name;
+                
+                const memberActions = document.createElement('div');
+                memberActions.className = 'member-actions';
+                
+                const editButton = document.createElement('button');
+                editButton.className = 'btn btn-edit';
+                editButton.textContent = 'Assign Projects';
+                editButton.onclick = () => assignProjects(member.id);
+                
+                const deleteButton = document.createElement('button');
+                deleteButton.className = 'btn btn-delete';
+                deleteButton.textContent = 'Remove';
+                deleteButton.onclick = () => removeMember(member.id);
+                
+                memberActions.appendChild(editButton);
+                memberActions.appendChild(deleteButton);
+                
+                memberItem.appendChild(memberName);
+                memberItem.appendChild(memberActions);
+                
+                // Add project section (initially hidden)
+                const memberProjects = document.createElement('div');
+                memberProjects.className = 'member-projects';
+                memberProjects.id = `projects-${member.id}`;
+                
+                // Add member projects
+                if (member.projects && member.projects.length > 0) {
+                    member.projects.forEach(projectId => {
+                        const project = projects.find(p => p.id === projectId);
+                        if (project) {
+                            const projectItem = document.createElement('div');
+                            projectItem.className = 'project-item';
+                            projectItem.innerHTML = `
+                                <div>${project.name}</div>
+                            `;
+                            memberProjects.appendChild(projectItem);
+                        }
+                    });
+                } else {
+                    memberProjects.innerHTML = '<div>No projects assigned</div>';
+                }
+                
+                memberItem.appendChild(memberProjects);
+                memberList.appendChild(memberItem);
+            });
+        }
+        
+        // Add a new member
+        function addMember() {
+            const newMemberInput = document.getElementById('newMember');
+            const name = newMemberInput.value.trim();
+            
+            if (name) {
+                const newId = members.length > 0 ? Math.max(...members.map(m => m.id)) + 1 : 1;
+                members.push({
+                    id: newId,
+                    name: name,
+                    projects: []
+                });
+                
+                renderMembers();
+                newMemberInput.value = '';
+            }
+        }
+        
+        // Remove a member
+        function removeMember(id) {
+            members = members.filter(member => member.id !== id);
+            renderMembers();
+        }
+        
+        // Toggle project visibility
+        function toggleProjects(id) {
+            const projectsSection = document.getElementById(`projects-${id}`);
+            if (projectsSection.style.display === 'block') {
+                projectsSection.style.display = 'none';
+            } else {
+                projectsSection.style.display = 'block';
+            }
+        }
+        
+        // Assign projects to member
+        function assignProjects(id) {
+            selectedMember = members.find(m => m.id === id);
+            if (selectedMember) {
+                document.getElementById('selectedMemberName').textContent = selectedMember.name;
+                document.getElementById('projectAssignment').style.display = 'block';
+                
+                // Check the assigned projects
+                const checkboxes = document.querySelectorAll('.project-checkbox input');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectedMember.projects.includes(parseInt(checkbox.value));
+                });
+            }
+        }
+        
+        // Render all projects for assignment
+        function renderProjects() {
+            const projectList = document.getElementById('projectList');
+            projectList.innerHTML = '';
+            
+            projects.forEach(project => {
+                const projectCheckbox = document.createElement('div');
+                projectCheckbox.className = 'project-checkbox';
+                
+                projectCheckbox.innerHTML = `
+                    <input type="checkbox" id="project-${project.id}" value="${project.id}">
+                    <label for="project-${project.id}">${project.name}</label>
+                `;
+                
+                projectList.appendChild(projectCheckbox);
+            });
+        }
+        
+        // Save project assignments
+        function saveProjects() {
+            if (selectedMember) {
+                const checkboxes = document.querySelectorAll('.project-checkbox input:checked');
+                selectedMember.projects = Array.from(checkboxes).map(cb => parseInt(cb.value));
+                
+                // Update the member in the array
+                const index = members.findIndex(m => m.id === selectedMember.id);
+                if (index !== -1) {
+                    members[index] = selectedMember;
+                }
+                
+                renderMembers();
+                document.getElementById('projectAssignment').style.display = 'none';
+            }
+        }
+        
+        // Cancel project assignment
+        function cancelAssignment() {
+            document.getElementById('projectAssignment').style.display = 'none';
+        }
+        
+        // Navigation
+        function navigateTo(page) {
+            console.log(`Navigating to ${page}`);
+            // In a real app, this would redirect to the appropriate page
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find the nav item that matches the page and make it active
+            document.querySelector(`.nav-item:nth-child(${getNavIndex(page)})`).classList.add('active');
+            
+            // For demonstration, show/hide project assignments when switching to Projects
+            if (page === 'projects') {
+                // This would normally navigate to Projects.html
+                alert('Navigating to Projects page. In a real implementation, this would link to Projects.html');
+                
+                // For demo purposes, show all project assignments
+                members.forEach(member => {
+                    const projectsSection = document.getElementById(`projects-${member.id}`);
+                    if (projectsSection) {
+                        projectsSection.style.display = 'block';
+                    }
+                });
+            } else {
+                // Hide all project sections when not on projects page
+                members.forEach(member => {
+                    const projectsSection = document.getElementById(`projects-${member.id}`);
+                    if (projectsSection) {
+                        projectsSection.style.display = 'none';
+                    }
+                });
+            }
+        }
+        
+        // Helper function to get nav index
+        function getNavIndex(page) {
+            switch(page) {
+                case 'home': return 2;
+                case 'projects': return 3;
+                case 'calendar': return 4;
+                case 'team': return 5;
+                default: return 2;
+            }
+        }
+        
+        // Show project details on member click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('member-name')) {
+                const memberId = parseInt(e.target.parentElement.id.split('-')[1]);
+                toggleProjects(memberId);
+            }
+        });
+    </script>
+</body>
+</html>

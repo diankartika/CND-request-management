@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Calendar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background-color: #ffcce6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            margin-right: 10px;
+        }
+        
+        .profile-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .nav-item.active {
+            background-color: #d9b0c9;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(226,225,255,0.4) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blob1, .blob2, .blob3 {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .blob1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(149, 128, 255, 0.3);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .blob2 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255, 128, 171, 0.2);
+            bottom: -200px;
+            right: 100px;
+        }
+        
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(128, 255, 191, 0.3);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #50479c;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #1db176;
+        }
+        
+        .calendar-icon {
+            background-color: #1db176;
+            border-radius: 5px;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-container {
+            background-color: rgba(142, 236, 200, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 700px;
+        }
+        
+        .month-header {
+            background-color: #1db176;
+            color: white;
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+        
+        .calendar-day {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .calendar-date {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .today {
+            background-color: #1db176;
+            color: white;
+        }
+        
+        .weekend {
+            color: #ff5c8d;
+        }
+        
+        .prev-month, .next-month {
+            color: #999;
+        }
+        
+        .highlighted {
+            background-color: #ff5c8d;
+            color: white;
+        }
+        
+        .logout-btn {
+            margin-top: auto;
+            background-color: #a02150;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-img"></div>
+            <div class="profile-name">Rafael Mahardika</div>
+        </div>
+        
+        <a href="#" class="nav-item">
+            <div class="nav-icon">🏠</div>
+            <div>Home</div>
+        </a>
+        
+        <a href="#" class="nav-item">
+            <div class="nav-icon">📂</div>
+            <div>Projects</div>
+        </a>
+        
+        <a href="#" class="nav-item active">
+            <div class="nav-icon">📅</div>
+            <div>Calender</div>
+        </a>
+        
+        <a href="#" class="nav-item">
+            <div class="nav-icon">👥</div>
+            <div>Team</div>
+        </a>
+        
+        <button class="logout-btn">Log out</button>
+    </div>
+    
+    <div class="main-content">
+        <div class="blob1"></div>
+        <div class="blob2"></div>
+        <div class="blob3"></div>
+        
+        <div class="content">
+            <h1>Calender</h1>
+            
+            <div class="section-title">
+                <div class="calendar-icon">📅</div>
+                <div>Upcoming Project</div>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="month-header">May</div>
+                
+                <div class="calendar-grid">
+                    <!-- Days of week -->
+                    <div class="calendar-day">05</div>
+                    <div class="calendar-day">Mo</div>
+                    <div class="calendar-day">Tu</div>
+                    <div class="calendar-day">We</div>
+                    <div class="calendar-day">Th</div>
+                    <div class="calendar-day">Fr</div>
+                    <div class="calendar-day weekend">Sa</div>
+                    <div class="calendar-day weekend">Su</div>
+                    
+                    <!-- Week 1 -->
+                    <div class="calendar-date highlighted">18</div>
+                    <div class="calendar-date prev-month">28</div>
+                    <div class="calendar-date prev-month">29</div>
+                    <div class="calendar-date prev-month">30</div>
+                    <div class="calendar-date today">1</div>
+                    <div class="calendar-date">2</div>
+                    <div class="calendar-date weekend">3</div>
+                    <div class="calendar-date weekend">4</div>
+                    
+                    <!-- Week 2 -->
+                    <div class="calendar-date highlighted">19</div>
+                    <div class="calendar-date">5</div>
+                    <div class="calendar-date">6</div>
+                    <div class="calendar-date">7</div>
+                    <div class="calendar-date">8</div>
+                    <div class="calendar-date">9</div>
+                    <div class="calendar-date weekend">10</div>
+                    <div class="calendar-date weekend">11</div>
+                    
+                    <!-- Week 3 -->
+                    <div class="calendar-date highlighted">20</div>
+                    <div class="calendar-date">12</div>
+                    <div class="calendar-date">13</div>
+                    <div class="calendar-date">14</div>
+                    <div class="calendar-date">15</div>
+                    <div class="calendar-date">16</div>
+                    <div class="calendar-date weekend">17</div>
+                    <div class="calendar-date weekend">18</div>
+                    
+                    <!-- Week 4 -->
+                    <div class="calendar-date highlighted">21</div>
+                    <div class="calendar-date">19</div>
+                    <div class="calendar-date">20</div>
+                    <div class="calendar-date">21</div>
+                    <div class="calendar-date">22</div>
+                    <div class="calendar-date">23</div>
+                    <div class="calendar-date weekend">24</div>
+                    <div class="calendar-date weekend">25</div>
+                    
+                    <!-- Week 5 -->
+                    <div class="calendar-date highlighted">22</div>
+                    <div class="calendar-date">26</div>
+                    <div class="calendar-date">27</div>
+                    <div class="calendar-date">28</div>
+                    <div class="calendar-date">29</div>
+                    <div class="calendar-date">30</div>
+                    <div class="calendar-date weekend">31</div>
+                    <div class="calendar-date next-month weekend">1</div>
+                    
+                    <!-- Week 6 -->
+                    <div class="calendar-date highlighted">23</div>
+                    <div class="calendar-date next-month">2</div>
+                    <div class="calendar-date next-month">3</div>
+                    <div class="calendar-date next-month">4</div>
+                    <div class="calendar-date next-month">5</div>
+                    <div class="calendar-date next-month">6</div>
+                    <div class="calendar-date next-month weekend">7</div>
+                    <div class="calendar-date next-month weekend">8</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 200px;
+            background-color: #ffcce6;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #333;
+            margin-right: 10px;
+        }
+        
+        .profile-name {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .nav-item.active {
+            background-color: #d9b0c9;
+        }
+        
+        .nav-icon {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(226,225,255,0.4) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blob1, .blob2, .blob3 {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .blob1 {
+            width: 300px;
+            height: 300px;
+            background-color: rgba(149, 128, 255, 0.3);
+            top: -100px;
+            right: -100px;
+        }
+        
+        .blob2 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(255, 128, 171, 0.2);
+            bottom: -200px;
+            right: 100px;
+        }
+        
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(128, 255, 191, 0.3);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #50479c;
+        }
+        
+        .welcome {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #50479c;
+        }
+        
+        .user-name {
+            color: #e84c8e;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #1db176;
+        }
+        
+        .request-icon {
+            background-color: #1db176;
+            border-radius: 5px;
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .request-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .request-table th {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            color: #777;
+            font-weight: normal;
+        }
+        
+        .request-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .status-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            min-width: 100px;
+        }
+        
+        .status-not-started {
+            background-color: #888;
+        }
+        
+        .status-in-progress {
+            background-color: #1a4cff;
+        }
+        
+        .status-done {
+            background-color: #1db176;
+        }
+        
+        .file-badge {
+            display: flex;
+            align-items: center;
+            background-color: #f5f5f5;
+            padding: 5px 10px;
+            border-radius: 5px;
+            width: fit-content;
+        }
+        
+        .file-icon {
+            margin-right: 5px;
+        }
+        
+        .remove-file {
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        
+        .add-request-btn {
+            margin-top: 20px;
+            background-color: #1db176;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 500px;
+            max-width: 90%;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            color: #50479c;
+        }
+        
+        .close-modal {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn-secondary {
+            background-color: #888;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: #1db176;
+        }
+        
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .file-input-label {
+            background-color: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        
+        .selected-file {
+            margin-top: 5px;
+            padding: 5px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .logout-btn {
+            margin-top: auto;
+            background-color: #a02150;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="profile">
+            <div class="profile-img"></div>
+            <div class="profile-name">Rafael Mahardika</div>
+        </div>
+        
+        <a class="nav-item active" onclick="navigateTo('home')">
+            <div class="nav-icon">🏠</div>
+            <div>Home</div>
+        </a>
+        
+        <a class="nav-item" onclick="navigateTo('request')">
+            <div class="nav-icon">📋</div>
+            <div>Request</div>
+        </a>
+        
+        <button class="logout-btn">Log out</button>
+    </div>
+    
+    <div class="main-content">
+        <div class="blob1"></div>
+        <div class="blob2"></div>
+        <div class="blob3"></div>
+        
+        <div class="content">
+            <h1 class="welcome">Hallo, <span class="user-name">Rafael Mahardika!</span></h1>
+            
+            <div class="section-title">
+                <div class="request-icon">📝</div>
+                <div>Your Request</div>
+            </div>
+            
+            <table class="request-table">
+                <thead>
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Status</th>
+                        <th>Deadline</th>
+                        <th>Attach File</th>
+                    </tr>
+                </thead>
+                <tbody id="requestTableBody">
+                    <!-- Requests will be dynamically populated here -->
+                </tbody>
+            </table>
+            
+            <button class="add-request-btn" onclick="openAddRequestModal()">+ Add New Request</button>
+            
+            <!-- Add Request Modal -->
+            <div class="modal" id="addRequestModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Add New Request</h2>
+                        <span class="close-modal" onclick="closeAddRequestModal()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="projectName" placeholder="Enter project name">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <select class="form-control" id="status">
+                                <option value="not-started">Not started</option>
+                                <option value="in-progress">On progress</option>
+                                <option value="done">Done</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Deadline</label>
+                            <input type="date" class="form-control" id="deadline">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Attach File</label>
+                            <div class="file-input-wrapper">
+                                <label class="file-input-label">Choose File</label>
+                                <input type="file" class="file-input" id="fileInput" onchange="handleFileSelect()">
+                            </div>
+                            <div class="selected-file" id="selectedFile"></div>
+                        </div>
+                        <div class="form-actions">
+                            <button class="btn-secondary" onclick="closeAddRequestModal()">Cancel</button>
+                            <button class="btn-secondary btn-primary" onclick="addRequest()">Add Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample data for initial requests
+        let requests = [
+            {
+                id: 1,
+                projectName: 'design feeds kabinet',
+                status: 'not-started',
+                deadline: '02/05/2025',
+                file: 'foto-kabinet.png'
+            },
+            {
+                id: 2,
+                projectName: 'design feeds kabinet',
+                status: 'done',
+                deadline: '03/05/2025',
+                file: 'foto-kabinet.png'
+            },
+            {
+                id: 3,
+                projectName: 'design feeds kabinet',
+                status: 'in-progress',
+                deadline: '02/05/2025',
+                file: 'foto-kabinet.png'
+            },
+            {
+                id: 4,
+                projectName: 'design feeds kabinet',
+                status: 'not-started',
+                deadline: '02/05/2025',
+                file: 'foto-kabinet.png'
+            }
+        ];
+        
+        // Initialize the page
+        window.onload = function() {
+            renderRequests();
+        };
+        
+        // Render all requests
+        function renderRequests() {
+            const requestTableBody = document.getElementById('requestTableBody');
+            requestTableBody.innerHTML = '';
+            
+            requests.forEach(request => {
+                const row = document.createElement('tr');
+                
+                // Project Name cell
+                const projectNameCell = document.createElement('td');
+                projectNameCell.textContent = request.projectName;
+                row.appendChild(projectNameCell);
+                
+                // Status cell
+                const statusCell = document.createElement('td');
+                const statusBadge = document.createElement('div');
+                statusBadge.className = `status-badge status-${request.status}`;
+                statusBadge.textContent = getStatusText(request.status);
+                statusCell.appendChild(statusBadge);
+                row.appendChild(statusCell);
+                
+                // Deadline cell
+                const deadlineCell = document.createElement('td');
+                deadlineCell.textContent = request.deadline;
+                row.appendChild(deadlineCell);
+                
+                // File cell
+                const fileCell = document.createElement('td');
+                if (request.file) {
+                    const fileBadge = document.createElement('div');
+                    fileBadge.className = 'file-badge';
+                    fileBadge.innerHTML = `
+                        <span class="file-icon">📄</span>
+                        <span>${request.file}</span>
+                        <span class="remove-file" onclick="removeFile(${request.id})">✕</span>
+                    `;
+                    fileCell.appendChild(fileBadge);
+                }
+                row.appendChild(fileCell);
+                
+                requestTableBody.appendChild(row);
+            });
+        }
+        
+        // Get formatted status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'not-started': return 'Not started';
+                case 'in-progress': return 'On progress';
+                case 'done': return 'Done';
+                default: return status;
+            }
+        }
+        
+        // Open add request modal
+        function openAddRequestModal() {
+            document.getElementById('addRequestModal').style.display = 'block';
+        }
+        
+        // Close add request modal
+        function closeAddRequestModal() {
+            document.getElementById('addRequestModal').style.display = 'none';
+            // Reset form
+            document.getElementById('projectName').value = '';
+            document.getElementById('status').value = 'not-started';
+            document.getElementById('deadline').value = '';
+            document.getElementById('selectedFile').style.display = 'none';
+            document.getElementById('selectedFile').textContent = '';
+        }
+        
+        // Handle file select
+        function handleFileSelect() {
+            const fileInput = document.getElementById('fileInput');
+            const selectedFile = document.getElementById('selectedFile');
+            
+            if (fileInput.files.length > 0) {
+                selectedFile.textContent = fileInput.files[0].name;
+                selectedFile.style.display = 'block';
+            } else {
+                selectedFile.style.display = 'none';
+            }
+        }
+        
+        // Add new request
+        function addRequest() {
+            const projectName = document.getElementById('projectName').value;
+            const status = document.getElementById('status').value;
+            const deadline = document.getElementById('deadline').value;
+            const fileInput = document.getElementById('fileInput');
+            
+            if (!projectName) {
+                alert('Please enter a project name');
+                return;
+            }
+            
+            if (!deadline) {
+                alert('Please select a deadline');
+                return;
+            }
+            
+            const formattedDate = formatDate(deadline);
+            
+            const newRequest = {
+                id: requests.length > 0 ? Math.max(...requests.map(r => r.id)) + 1 : 1,
+                projectName: projectName,
+                status: status,
+                deadline: formattedDate,
+                file: fileInput.files.length > 0 ? fileInput.files[0].name : null
+            };
+            
+            requests.push(newRequest);
+            renderRequests();
+            closeAddRequestModal();
+        }
+        
+        // Format date from YYYY-MM-DD to MM/DD/YYYY
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            
+            const date = new Date(dateString);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return `${month}/${day}/${year}`;
+        }
+        
+        // Remove file from request
+        function removeFile(requestId) {
+            const requestIndex = requests.findIndex(r => r.id === requestId);
+            if (requestIndex !== -1) {
+                requests[requestIndex].file = null;
+                renderRequests();
+            }
+        }
+        
+        // Navigation
+        function navigateTo(page) {
+            console.log(`Navigating to ${page}`);
+            
+            // Update active nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find the nav item that matches the page and make it active
+            const navItems = document.querySelectorAll('.nav-item');
+            if (page === 'home') {
+                navItems[0].classList.add('active');
+            } else if (page === 'request') {
+                navItems[1].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
