@@ -44,3 +44,9 @@ A simple internal web-based platform to help the **Content & Design Division of 
 ## 📄 License
 
 This project is open source and free to use for internal educational and organizational purposes. No commercial use without permission.
+
+## Main UI![Landing page sblm login](https://github.com/user-attachments/assets/f5f1cb3c-35b6-47c3-b75b-72cf8b94ca02)
+![dasboard staff cnd](https://github.com/user-attachments/assets/480ee08f-68a3-463d-866e-9cc6dda21a23)
+![dasboard requester](https://github.com/user-attachments/assets/67d7a5cc-7b75-43d3-bda3-13c269ba02d1)
+
+
