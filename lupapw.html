@@ -4,7 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
-    <link rel="stylesheet" href="lupapw.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+body{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.main{
+    width: 684px;
+    height: 503px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F5F5FF;
+    border: 1px solid #8D8FF9;
+    margin-top: 103px;
+    border-radius: 20px;
+}
+.titles{
+    margin:0;
+    margin-bottom: 30px;
+}
+.forgot-pass{
+    width: 569px;
+    height: 299px;
+    margin: 102px 57px 102px 58px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.text{
+    font-family: Plus Jakarta Sans;
+    font-weight: 700;
+    font-size: 46px;
+}
+.pink{
+    color: #E9509D;
+}
+.green{
+    color : #50E9B6
+}
+.email {
+    width: 569px;
+    height: 70px;
+}
+.auth-kinds {
+    margin: 0;
+    padding-bottom: 6px;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+    color: #011829;
+}
+
+.fill-here {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #D4D4D8;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #011829;
+    outline: none;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kirim-email{
+    height: 80px;
+    width: 302px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin : 40px 133.5px 0 133.5px;
+}
+.send-email{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6264F2;
+    color: white;
+    padding: 24,5px 10px;
+    border: 1px solid #6264F2;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+}
+.sudah-blom{
+    margin: 15px 48px 0 48px;
+}
+
+.kirim-email span{
+    font-weight: 700;
+    color: #000287;
+    font-family: plus jakarta sans, sans-serif;
+    font-size:14px ;
+}
+
+/* Actual link */
+.kirim-email a {
+    color: #DD388B;
+    font-weight: 400;
+    text-decoration: none;
+    font-weight: solid;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.icon-left, .icon-right, .icon-pink {
+    position: absolute;
+  }
+
+.icon-left {
+    top: -50px;
+    left: -40px;
+    width: 300px;
+    z-index: -3;
+}
+  
+.icon-right {
+    position: absolute;
+    bottom: -100px;
+    right: -90px;
+    width: 420px;
+    z-index: -1; /* di bawah pink */
+  }
+  
+.icon-pink {
+    position: absolute;
+    top: 100px;   /* naikkan sedikit */
+    right: 20px;    /* geser kiri */
+    width: 260px;    /* sedikit lebih kecil dari ungu */
+    z-index: -2;     /* lebih tinggi dari icon ungu */
+}
+
+.icon-left img,
+.icon-right img,
+.icon-pink img {
+  width: 100%;
+  height: auto;
+}
+    </style>
 </head>
 <body>
     <div class="icon-left">
