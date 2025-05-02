@@ -18,41 +18,7 @@ A simple internal web-based platform to help the **Content & Design Division of 
 - **Database:** MySQL  
 - **Deployment:** Streamlit Community Cloud (Free hosting)
 
-## 📁 Folder Structure
 
-```bash
-.
-├── frontend/             # Static files (HTML/CSS/JS)
-├── backend/              # Streamlit app & logic
-├── database/             # SQL schema and scripts
-├── assets/               # Images or mockups
-└── README.md
-
-
----
-
-### 🔧 5. Cara Menjalankan Secara Lokal
-```markdown
-## 🚀 Getting Started (Local Development)
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/your-org/request-management.git
-cd request-management
-
-2. Setup Virtual Environment
-python -m venv .venv
-source .venv/bin/activate  # or .venv\Scripts\activate for Windows
-3. Install Dependencies
-pip install -r requirements.txt
-4. Run the App
-streamlit run backend/app.py
-
-
----
-
-### 📄 6. Dokumen Terkait
-```markdown
 ## 🗂️ Project Documents
 
 - 🎨 [UI Design (Figma)](https://www.figma.com/design/tKHBBDzb2sGNlSKuBaqu5q/UI-Design-OmahTIpes?node-id=75-1661&t=jJDv8edAFGqhAHZi-1)  
