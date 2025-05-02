@@ -6,20 +6,20 @@ A simple internal web-based platform to help the **Content & Design Division of 
 
 ## 📌 Features
 
-- 📝 **Structured Design Request Form**
-- 📊 **Request Dashboard with Status Tracking** (Pending, On Progress, Done)
-- 📅 **Calendar View** (Monthly)
-- 🔔 **Automatic H-1 Reminders** before deadlines
-- 🧑‍💻 **Admin Assignment** of requests to designers
-- 🔐 **Basic Login Authentication**
+- 📝 Structured Design Request Form
+- 📊 Request Dashboard with Status Tracking (Pending, On Progress, Done)
+- 📅 Calendar View (Monthly)
+- 🔔 Automatic H-1 Reminders before deadlines
+- 🧑‍💻 Admin Assignment of requests to designers
+- 🔐 Basic Login Authentication
 
 ---
 
 ## 🧱 Tech Stack
 
-- **Frontend:** HTML, CSS, JavaScript
-- **Backend:** Streamlit
-- **Database:** MySQL
+- **Frontend:** HTML, CSS, JavaScript  
+- **Backend:** Streamlit  
+- **Database:** MySQL  
 - **Deployment:** Streamlit Community Cloud (Free hosting)
 
 ---
@@ -47,8 +47,8 @@ pip install -r requirements.txt
 streamlit run backend/app.py
 🗂️ Project Documents
 
-🎨 UI Design (Figma) : https://www.figma.com/design/tKHBBDzb2sGNlSKuBaqu5q/UI-Design-OmahTIpes?node-id=75-1661&t=jJDv8edAFGqhAHZi-1
-📄 Project Requirement Document (PRD) : https://docs.google.com/document/d/1tUwVXxiGxhRV3zGL7xieCE_my7ZCj3yV/edit?usp=sharing&ouid=111051125610553820387&rtpof=true&sd=true
+🎨 UI Design (Figma)
+📄 Project Requirement Document (PRD)
 📆 Development Timeline
 
 Stage	Date
