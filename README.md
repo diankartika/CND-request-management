@@ -31,9 +31,7 @@ A simple internal web-based platform to help the **Content & Design Division of 
 | Initial Planning    | 16 Mar – 20 Apr   |
 | UX Research         | 20 – 25 Apr       |
 | UI Design           | 25 – 28 Apr       |
-| Development         | 28 Apr – 1 May    |
-| Testing & Bugfixing | 1 May             |
-| Deployment          | 1 – 2 May         |
+| Development         | 28 Apr – 2 May    |
 
 ## 🧑‍🤝‍🧑 Project Team
 
